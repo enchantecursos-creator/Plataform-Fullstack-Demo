@@ -60,6 +60,15 @@
 }
 
 @layer components {
+  .login-bg {
+    background-image: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('/TESTE.png');
+    background-size: cover;
+    background-position: right center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    width: 100%;
+  }
+
   .gradient-bg {
     @apply bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700;
   }

@@ -6,12 +6,14 @@ const AuthContext = createContext(undefined);
 
 export const AuthProvider = ({ children }) => {
   const { toast } = useToast();
+
   const [user, setUser] = useState(null);
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
+
     const getSession = async () => {
       const { data: { session }, error } = await supabase.auth.getSession();
       
@@ -26,6 +28,8 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
     };
 
+ 
+ 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (_event, session) => {
         setSession(session);
@@ -41,6 +45,10 @@ export const AuthProvider = ({ children }) => {
     };
   }, []);
 
+ 
+ 
+ 
+ 
   const signUp = useCallback(async (email, password, options) => {
     const { data, error } = await supabase.auth.signUp({
       email,
@@ -57,6 +65,10 @@ export const AuthProvider = ({ children }) => {
     return { data, error };
   }, [toast]);
 
+
+
+
+  
   const signIn = useCallback(async (email, password) => {
     const { error } = await supabase.auth.signInWithPassword({
       email,
@@ -72,6 +84,8 @@ export const AuthProvider = ({ children }) => {
     return { error };
   }, [toast]);
 
+
+  
   const signInWithGoogle = useCallback(async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
@@ -103,13 +117,13 @@ export const AuthProvider = ({ children }) => {
         description: error.message || "Something went wrong",
       });
     }
-    // Always clear local state on sign out regardless of benign errors
+
     setUser(null);
     setSession(null);
     return { error };
   }, [toast]);
 
-  const value = useMemo(() => ({
+  const value = useMemo(() => ({ 
     user,
     session,
     loading,
